@@ -1,0 +1,43 @@
+<meta charset="UTF-8">
+<script src='https://unpkg.com/vue'> </script>
+
+<div id="app">
+
+    <h1> {{ texto }}</h1>
+
+</div>
+
+<script>
+    new Vue ({
+        el:'#app',
+        data: {
+            texto: 'Texto que sofrerá o efeito'
+        },
+        beforeMount() {
+            const textoSplit = this.texto.split('');
+            this.texto = '';
+            console.log(textoSplit);
+            
+            textoSplit.forEach((letra, index) => {
+                setTimeout(() => {
+                    this.texto += letra;
+                }, 80 * index);
+            });
+        }
+    })
+
+</script>
+
+<style>
+
+h1::after {
+    content: '|';
+    margin-left: 2px;
+    opacity: 1;
+    animation: pisca 0.7s infinite
+}
+@keyframes pisca {
+    0%, 100% {opacity: 1;}
+    50% {opacity: 0}
+}
+</style>
